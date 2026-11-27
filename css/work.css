@@ -1,0 +1,39 @@
+/* ── 작품 상세 페이지(work.html) 전용 스타일 ── */
+
+/* 왼쪽: 글 / 오른쪽: 이미지 */
+.detail {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  border-top: 1px solid var(--line);
+  min-height: calc(100vh - var(--header-h));
+}
+
+.detail .text {
+  border-right: 1px solid var(--line);
+}
+.detail .text-inner {
+  position: sticky;            /* 이미지를 내려도 글은 따라와요 */
+  top: var(--header-h);
+}
+.detail .num { font-size: 14px; color: var(--sub); padding: 12px 28px; border-bottom: 1px solid var(--line); }
+.detail .body { padding: 24px 28px 40px; }
+.detail .title { font-size: 15px; font-weight: 500; line-height: 1.5; }
+.detail .artist { margin-top: 16px; font-size: 14px; }
+.detail .desc { margin-top: 40px; font-size: 13px; line-height: 1.8; white-space: pre-line; }
+.detail .nav { margin-top: 48px; display: flex; justify-content: space-between; font-size: 13px; }
+.detail .nav a { color: var(--sub); text-decoration: none; }
+.detail .nav a:hover { color: var(--text); }
+
+.detail .images { padding: 28px; display: flex; flex-direction: column; gap: 28px; }
+.detail .images img { display: block; max-width: 100%; max-height: calc(100vh - var(--header-h) - 56px); width: auto; height: auto; margin: 0 auto; } /* 한 화면 안에 다 보이게 */
+
+.not-found { padding: 80px 28px; font-size: 14px; }
+.not-found a { color: inherit; }
+
+/* 모바일: 글 위, 이미지 아래 */
+@media (max-width: 800px) {
+  .detail { grid-template-columns: 1fr; }
+  .detail .text { border-right: 0; border-bottom: 1px solid var(--line); }
+  .detail .text-inner { position: static; }
+  .detail .images { padding: 16px; gap: 16px; }
+}

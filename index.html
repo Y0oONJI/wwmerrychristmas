@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Materiality of Christmas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@700&display=swap">
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+  <script src="js/header.js"></script>
+
+  <div class="container">
+
+  <section class="hero" id="hero">
+    <!-- 타이틀: 잠시 꺼둠 — 다시 쓰려면 주석 기호만 지우면 돼요
+    <img src="assets/title.svg" alt="The Materiality of Christmas">
+    -->
+    <div class="glass-title" id="glassTitle"></div>
+  </section>
+
+  <!-- 예시 조각 모양들 (500×500 기준). 나중에 작품별 실제 조각으로 바꿔요. -->
+  <svg width="0" height="0" style="position:absolute">
+    <defs>
+      <g id="piece-clover">
+        <circle cx="145" cy="150" r="110"/><circle cx="355" cy="150" r="110"/>
+        <circle cx="145" cy="360" r="110"/><circle cx="355" cy="360" r="110"/>
+      </g>
+      <g id="piece-star"><polygon points="250,45 306,188 459,197 340,294 379,443 250,360 121,443 160,294 41,197 194,188" stroke-linejoin="round"/></g>
+      <g id="piece-tree"><polygon points="250,30 400,200 340,200 440,350 320,350 320,470 180,470 180,350 60,350 160,200 100,200"/></g>
+      <g id="piece-ornament"><circle cx="250" cy="290" r="190"/><rect x="200" y="40" width="100" height="90" rx="16"/></g>
+      <g id="piece-gift">
+        <rect x="70" y="200" width="360" height="270" rx="20"/><rect x="45" y="140" width="410" height="90" rx="20"/>
+        <circle cx="195" cy="95" r="60"/><circle cx="305" cy="95" r="60"/>
+      </g>
+      <g id="piece-snowflake">
+        <rect x="205" y="30" width="90" height="440" rx="45"/>
+        <rect x="205" y="30" width="90" height="440" rx="45" transform="rotate(60 250 250)"/>
+        <rect x="205" y="30" width="90" height="440" rx="45" transform="rotate(120 250 250)"/>
+      </g>
+      <g id="piece-bell">
+        <path d="M250 40 C350 40 380 130 380 250 L380 330 L440 400 L60 400 L120 330 L120 250 C120 130 150 40 250 40 Z"/>
+        <circle cx="250" cy="430" r="50"/>
+      </g>
+      <g id="piece-wreath"><path fill-rule="evenodd" d="M250 30 a220 220 0 1 0 0.1 0 Z M250 145 a105 105 0 1 0 0.1 0 Z"/></g>
+
+      <!-- 썸네일 효과 필터 -->
+      <filter id="thumb-grain" color-interpolation-filters="sRGB">
+        <feColorMatrix in="SourceGraphic" type="saturate" values="0" result="gray"/>
+        <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch" result="noise"/>
+        <feColorMatrix in="noise" type="saturate" values="0" result="noiseGray"/>
+        <feComponentTransfer in="noiseGray" result="grain">
+          <feFuncR type="linear" slope="0.5" intercept="0.62"/>
+          <feFuncG type="linear" slope="0.5" intercept="0.62"/>
+          <feFuncB type="linear" slope="0.5" intercept="0.62"/>
+        </feComponentTransfer>
+        <feBlend in="gray" in2="grain" mode="multiply" result="mixed"/>
+        <feComposite in="mixed" in2="SourceAlpha" operator="in"/>
+      </filter>
+      <!-- 유리 효과 공통: 흑백 → 유리처럼 일그러뜨리기 → 살짝 흐리게 → 고운 입자 -->
+      <!-- frosted: 서리 낀 유리처럼 잘게 일그러짐 -->
+      <filter id="thumb-frosted" color-interpolation-filters="sRGB" x="0" y="0" width="100%" height="100%">
+        <feColorMatrix in="SourceGraphic" type="saturate" values="0" result="gray"/>
+        <feTurbulence type="fractalNoise" baseFrequency="0.55" numOctaves="2" seed="4" result="bumps"/>
+        <feDisplacementMap in="gray" in2="bumps" scale="16" xChannelSelector="R" yChannelSelector="G" result="warp"/>
+        <feGaussianBlur in="warp" stdDeviation="1.4" result="soft"/>
+        <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="1" seed="9" result="noise"/>
+        <feColorMatrix in="noise" type="saturate" values="0" result="noiseGray"/>
+        <feComponentTransfer in="noiseGray" result="grain">
+          <feFuncR type="linear" slope="0.3" intercept="0.78"/><feFuncG type="linear" slope="0.3" intercept="0.78"/><feFuncB type="linear" slope="0.3" intercept="0.78"/>
+        </feComponentTransfer>
+        <feBlend in="soft" in2="grain" mode="multiply" result="mixed"/>
+        <feComposite in="mixed" in2="SourceAlpha" operator="in"/> <!-- 효과를 이미지 모양 안에서만 -->
+      </filter>
+      <!-- reeded: 세로 골이 진 유리처럼 줄무늬로 일그러짐 -->
+      <filter id="thumb-reeded" color-interpolation-filters="sRGB" x="0" y="0" width="100%" height="100%">
+        <feColorMatrix in="SourceGraphic" type="saturate" values="0" result="gray"/>
+        <feTurbulence type="turbulence" baseFrequency="0.07 0.0005" numOctaves="1" seed="2" result="ribs"/>
+        <feDisplacementMap in="gray" in2="ribs" scale="26" xChannelSelector="R" yChannelSelector="R" result="warp"/>
+        <feGaussianBlur in="warp" stdDeviation="1.6 0.6" result="soft"/>
+        <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="1" seed="9" result="noise"/>
+        <feColorMatrix in="noise" type="saturate" values="0" result="noiseGray"/>
+        <feComponentTransfer in="noiseGray" result="grain">
+          <feFuncR type="linear" slope="0.3" intercept="0.78"/><feFuncG type="linear" slope="0.3" intercept="0.78"/><feFuncB type="linear" slope="0.3" intercept="0.78"/>
+        </feComponentTransfer>
+        <feBlend in="soft" in2="grain" mode="multiply" result="mixed"/>
+        <feComposite in="mixed" in2="SourceAlpha" operator="in"/> <!-- 효과를 이미지 모양 안에서만 -->
+      </filter>
+      <!-- 한 가지 색조: 어두운 곳은 짙은 초록, 밝은 곳은 연한 초록 (tableValues 앞=어두운 색, 뒤=밝은 색) -->
+      <filter id="thumb-duotone" color-interpolation-filters="sRGB">
+        <feColorMatrix type="saturate" values="0"/>
+        <feComponentTransfer>
+          <feFuncR type="table" tableValues="0.17 0.86"/>
+          <feFuncG type="table" tableValues="0.29 0.90"/>
+          <feFuncB type="table" tableValues="0.21 0.85"/>
+        </feComponentTransfer>
+      </filter>
+    </defs>
+  </svg>
+
+  <main class="grid" id="work"></main>
+
+  </div>
+
+  <script src="data/works.js"></script>
+  <script src="js/main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+/* ── 공통 스타일 + 헤더 ── 모든 페이지에서 같이 써요 (색·폰트는 여기 :root 에서 바꾸면 전체에 반영) */
+
+:root {
+  --header-h: 80px;   /* 실제 높이는 js/header.js가 재서 다시 넣어요 */
+  --bg: #f6f6f1;      /* 배경색 — 이상하면 #fff로 바꾸면 돼요 */
+  --text: #1a1a1a;    /* 글자색 */
+  --sub: #a8a8a3;     /* 연한 글자색 */
+  --line: #dcdcd5;    /* 선 색 (연하게) */
+  --font: "DM Mono", "Courier New", monospace; /* 타자기 느낌 폰트 */
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); font-family: var(--font); }
+
+/* ── 공통 헤더 ── */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--bg);
+}
+.site-header .inner {
+  padding: 28px 28px; /* 위아래 / 양옆 여백 */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.site-header a { color: inherit; text-decoration: none; }
+.site-header .site-title,
+.site-header nav a { font-size: 15px; text-transform: uppercase; letter-spacing: 0.02em; }
+.site-header nav a:hover { text-decoration: underline; }
+
+/* 헤더에 가려지지 않게 Work로 이동할 때 헤더 높이만큼 띄워요 */
+#work { scroll-margin-top: var(--header-h); }
+
+/* 모바일: 헤더 글자를 줄여서 한 줄에 들어가게 */
+@media (max-width: 600px) {
+  .site-header .inner { padding: 20px 16px; }
+  .site-header .site-title,
+  .site-header nav a { font-size: 13px; }
+}
